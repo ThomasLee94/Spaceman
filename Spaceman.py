@@ -23,7 +23,11 @@
 
 import random
 
+# Lose counter
 counter = 0
+if counter >= 7:
+    print("You lose! Better luck next time!")
+    break
 
 def load_word():
    f = open('words.txt', 'r')
@@ -32,8 +36,8 @@ def load_word():
 
    words_list = words_list[0].split(' ')
    secret_word = random.choice(words_list)
-
-   print("secret word: " + secret_word)
+   start_word = ""
+   start_word = secret_word
 
    return secret_word
 
@@ -64,15 +68,13 @@ def get_guessed_word(secret_word, letters_guessed):
     in the word that the user has not yet guessed, shown an _ (underscore) instead.
     '''
     # FILL IN YOUR CODE HERE...
-
-    print("hello, I am inside the get_guessed_word function")
-
-    if is_word_guessed(secret_word, letters_guessed):
-        print("Good Guess!")
-        print("get_guessed_word function: " + letters_guessed)
-    else:
-        print("_")
-        print("Wrong guess! You have {} guesses left!".format(counter))
+    for i in len(secret_word):
+        if is_word_guessed(secret_word, letters_guessed):
+            print("Good Guess!")
+            print("get_guessed_word function: " + letters_guessed)
+        else:
+            print("_")
+            print("Wrong guess! You have {} guesses left!".format(counter))
 
 
 def get_available_letters(letters_guessed):
@@ -82,8 +84,14 @@ def get_available_letters(letters_guessed):
       yet been guessed.
     '''
 
+    #make an array of guessed letters
+    #returns the letters that have been guessed
 
 
+def user_input(prompt):
+    user_input = input(prompt)
+    print("Guess Letter: " + user_input)
+    return user_input
 
 def spaceman(secret_word):
     '''
@@ -100,9 +108,15 @@ def spaceman(secret_word):
     '''
     # FILL IN YOUR CODE HERE...
 
-load_word()
-is_word_guessed("Tom", "a")
-get_guessed_word("Tom", "a")
+    print("Welcome to Spaceman! The secret word contains {} letters!".format(len(load_word())))
+    print("Please guess 1 letter at a time!")
+    print("If you exceed 7 guesses you lose!")
+
+
+
+
+
+spaceman(load_word())
 #
 # secret_word = load_word()
 # spaceman(load_word())
