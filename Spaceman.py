@@ -23,11 +23,12 @@
 
 import random
 
-# Lose counter
 counter = 0
-if counter >= 7:
-    print("You lose! Better luck next time!")
-    break
+
+def count_check(count):
+    if counter >= 7:
+        print("You lose! Better luck next time!")
+        return
 
 def load_word():
    f = open('words.txt', 'r')
@@ -39,6 +40,7 @@ def load_word():
    start_word = ""
    start_word = secret_word
 
+   count_check(counter)
    return secret_word
 
 def is_word_guessed(secret_word, letters_guessed):
@@ -86,6 +88,8 @@ def get_available_letters(letters_guessed):
 
     #make an array of guessed letters
     #returns the letters that have been guessed
+    arr = [letters_guessed]
+    return arr
 
 
 def user_input(prompt):
@@ -113,10 +117,8 @@ def spaceman(secret_word):
     print("If you exceed 7 guesses you lose!")
 
 
-
-
-
 spaceman(load_word())
+
 #
 # secret_word = load_word()
 # spaceman(load_word())
