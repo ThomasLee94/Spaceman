@@ -116,7 +116,8 @@ def spaceman(secret_word):
     print("Please guess 1 letter at a time!")
     print("If you exceed 7 guesses you lose!")
 
-
+    guess1 = input("Guess letter: ")
+    if guess1()
 spaceman(load_word())
 
 #
