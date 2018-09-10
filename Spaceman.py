@@ -31,7 +31,7 @@ def load_word():
    words_list = words_list[0].split(' ')
    secret_word = random.choice(words_list)
 
-   print(secret_word)
+   print("secret word: " + secret_word)
 
    return secret_word
 
@@ -48,10 +48,8 @@ def is_word_guessed(secret_word, letters_guessed):
     for i in secret_word:
         for j in letters_guessed:
             if i == j:
-                print("True")
                 return True
             else:
-                print("False")
                 return False
 
 def get_guessed_word(secret_word, letters_guessed):
@@ -64,7 +62,12 @@ def get_guessed_word(secret_word, letters_guessed):
     '''
     # FILL IN YOUR CODE HERE...
 
+    print("hello, I am inside the get_guessed_word function")
 
+    if is_word_guessed(secret_word, letters_guessed):
+        print("get_guessed_word function: " + letters_guessed)
+    else:
+        print("_")
 
 
 def get_available_letters(letters_guessed):
@@ -94,6 +97,7 @@ def spaceman(secret_word):
 
 load_word()
 is_word_guessed("Tom", "a")
+get_guessed_word("Tom", "a")
 #
 # secret_word = load_word()
 # spaceman(load_word())
