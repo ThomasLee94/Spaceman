@@ -23,6 +23,8 @@
 
 import random
 
+counter = 0
+
 def load_word():
    f = open('words.txt', 'r')
    words_list = f.readlines()
@@ -45,11 +47,12 @@ def is_word_guessed(secret_word, letters_guessed):
 
     # FILL IN YOUR CODE HERE...
 
-    for i in secret_word:
+    for i in len(secret_word):
         for j in letters_guessed:
             if i == j:
                 return True
             else:
+                counter += 1
                 return False
 
 def get_guessed_word(secret_word, letters_guessed):
@@ -65,9 +68,11 @@ def get_guessed_word(secret_word, letters_guessed):
     print("hello, I am inside the get_guessed_word function")
 
     if is_word_guessed(secret_word, letters_guessed):
+        print("Good Guess!")
         print("get_guessed_word function: " + letters_guessed)
     else:
         print("_")
+        print("Wrong guess! You have {} guesses left!".format(counter))
 
 
 def get_available_letters(letters_guessed):
