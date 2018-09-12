@@ -23,8 +23,6 @@
 
 import random
 
-counter = 0
-
 def count_check(count):
     if counter >= 7:
         print("You lose! Better luck next time!")
@@ -40,7 +38,6 @@ def load_word():
    start_word = ""
    start_word = secret_word
 
-   count_check(counter)
    return secret_word
 
 def is_word_guessed(secret_word, letters_guessed):
@@ -50,16 +47,13 @@ def is_word_guessed(secret_word, letters_guessed):
     returns: boolean, True only if all the letters of secretWord are in lettersGuessed;
       False otherwise
     '''
-
     # FILL IN YOUR CODE HERE...
+    secret_list = list(secret_word)
+    for i in secret_list:
+        if i not in letters_guessed:
+            return False
 
-    for i in len(secret_word):
-        for j in letters_guessed:
-            if i == j:
-                return True
-            else:
-                counter += 1
-                return False
+    return True
 
 def get_guessed_word(secret_word, letters_guessed):
     '''
@@ -67,16 +61,20 @@ def get_guessed_word(secret_word, letters_guessed):
     lettersGuessed: list of letters that have been guessed so far.
     returns: string, of letters and underscores.  For letters in the word that the user has
     guessed correctly, the string should contain the letter at the correct position.  For letters
-    in the word that the user has not yet guessed, shown an _ (underscore) instead.
+    in the word that the user hasnot yet guessed, shown an _ (underscore) instead.
     '''
     # FILL IN YOUR CODE HERE...
-    for i in len(secret_word):
-        if is_word_guessed(secret_word, letters_guessed):
-            print("Good Guess!")
-            print("get_guessed_word function: " + letters_guessed)
+
+    underscore = []
+    for i in range(0, len(secret_word)):
+        if secret_word[i] in letters_guessed:
+            underscore.append(secret_word[i])
         else:
-            print("_")
-            print("Wrong guess! You have {} guesses left!".format(counter))
+            underscore.append("_")
+
+    return underscore
+
+    # print("Wrong guess! You have {} guesses left!".format(counter))
 
 
 def get_available_letters(letters_guessed):
@@ -86,22 +84,19 @@ def get_available_letters(letters_guessed):
       yet been guessed.
     '''
 
-    #make an array of guessed letters
-    #returns the letters that have been guessed
     arr = [letters_guessed]
     return arr
 
 
 def user_input(prompt):
     user_input = input(prompt)
-    print("Guess Letter: " + user_input)
     return user_input
 
 def spaceman(secret_word):
     '''
     secretWord: string, the secret word to guess.
     Starts up a game of Spaceman in the command line.
-    * At the start of the game, let the user know how many
+    * At the start of the game, let the user know how man\y
       letters the secretWord contains.
     * Ask the user to guess one letter per round.
     * The user should receive feedback immediately after each guess
@@ -112,13 +107,30 @@ def spaceman(secret_word):
     '''
     # FILL IN YOUR CODE HERE...
 
+    count = 0
+    guesses = []
+
     print("Welcome to Spaceman! The secret word contains {} letters!".format(len(load_word())))
     print("Please guess 1 letter at a time!")
     print("If you exceed 7 guesses you lose!")
 
-    guess1 = input("Guess letter: ")
-    if guess1()
-spaceman(load_word())
+    while count <= 7:
+        guess1 = user_input('Guess letter: ')
+        guesses.append(guess1)
+        if is_word_guessed(secret_word, str(guesses)):
+            get_guessed_word(secret_word, guesses)
+            print(secret_word)
+            print("You win Spaceman!")
+            count = 8
+
+        else:
+            print_word = get_guessed_word(secret_word, str(guesses))
+            print("You lose Spaceman :(")
+            print(print_word)
+
+# spaceman(load_word())
+spaceman("Tom")
+
 
 #
 # secret_word = load_word()
