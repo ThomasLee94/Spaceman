@@ -23,11 +23,6 @@
 
 import random
 
-def count_check(count):
-    if counter >= 7:
-        print("You lose! Better luck next time!")
-        return
-
 def load_word():
    f = open('words.txt', 'r')
    words_list = f.readlines()
@@ -52,7 +47,6 @@ def is_word_guessed(secret_word, letters_guessed):
     for i in secret_list:
         if i not in letters_guessed:
             return False
-
     return True
 
 def get_guessed_word(secret_word, letters_guessed):
@@ -71,11 +65,16 @@ def get_guessed_word(secret_word, letters_guessed):
             underscore.append(secret_word[i])
         else:
             underscore.append("_")
-
     return underscore
 
     # print("Wrong guess! You have {} guesses left!".format(counter))
 
+
+def is_correct_guess(secret_word, letters_guessed):
+    if letters_guessed in secret_word:
+        return True
+    else:
+        return False
 
 def get_available_letters(letters_guessed):
     '''
@@ -114,22 +113,34 @@ def spaceman(secret_word):
     print("Please guess 1 letter at a time!")
     print("If you exceed 7 guesses you lose!")
 
+    secret_word = "cat"
+
     while count <= 7:
-        guess1 = user_input('Guess letter: ')
-        guesses.append(guess1)
+        guess = user_input('Guess letter: ')
+        guesses.append(guess)
+        print_word = get_guessed_word(secret_word, str(guesses))
+        print(print_word)
+
+        if not is_correct_guess(secret_word, guess):
+            count += 1
+
+        print(count)
+
+
+        # Win Game.
         if is_word_guessed(secret_word, str(guesses)):
             get_guessed_word(secret_word, guesses)
             print(secret_word)
-            print("You win Spaceman!")
-            count = 8
+            print("You WIN Spaceman!")
+            return
 
-        else:
-            print_word = get_guessed_word(secret_word, str(guesses))
-            print("You lose Spaceman :(")
-            print(print_word)
+    # Lose Game.
+    if count > 7:
+        print("Loser")
+        return
 
-# spaceman(load_word())
-spaceman("Tom")
+spaceman(load_word())
+#get_guessed_word("tom", "o")
 
 
 #
