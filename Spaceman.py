@@ -68,7 +68,7 @@ def get_guessed_word(secret_word, letters_guessed):
             letter_or_underscore.append("_")
     return letter_or_underscore
 
-    # print("Wrong guess! You have {} guesses left!".format(counter))
+    # print("Wrong guess! You have {s} guesses left!".format(counter))
 
 
 def is_correct_guess(secret_word, letters_guessed):
@@ -76,11 +76,16 @@ def is_correct_guess(secret_word, letters_guessed):
     #     return True
     # else:
     #     return False
-    for letter in letters_guessed:
-        if letter in list(secret_word):
+    
+    if len(letters_guessed)>0:
+        if letters_guessed[-1] in list(secret_word):
+            print("TRUE")
             return True
         else:
+            print("FALSE")
             return False
+    else:
+        print("No guesses found!")
 
 
 def get_available_letters(letters_guessed):
@@ -152,6 +157,8 @@ def spaceman(secret_word):
 
         if is_correct_guess(secret_word, guesses_list) == False:
             count += 1
+        else:
+            count = count
 
         print(count)
 
@@ -170,6 +177,7 @@ def spaceman(secret_word):
 
 
 spaceman(load_word())
+#is_correct_guess("cat", "a")
 
 
 #
