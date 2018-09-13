@@ -33,6 +33,7 @@ def load_word():
    start_word = ""
    start_word = secret_word
 
+   print("Start word: {}".format(start_word))
    return secret_word
 
 def is_word_guessed(secret_word, letters_guessed):
@@ -59,22 +60,28 @@ def get_guessed_word(secret_word, letters_guessed):
     '''
     # FILL IN YOUR CODE HERE...
 
-    underscore = []
+    letter_or_underscore = []
     for i in range(0, len(secret_word)):
         if secret_word[i] in letters_guessed:
-            underscore.append(secret_word[i])
+            letter_or_underscore.append(secret_word[i])
         else:
-            underscore.append("_")
-    return underscore
+            letter_or_underscore.append("_")
+    return letter_or_underscore
 
     # print("Wrong guess! You have {} guesses left!".format(counter))
 
 
 def is_correct_guess(secret_word, letters_guessed):
-    if letters_guessed in secret_word:
-        return True
-    else:
-        return False
+    # if letters_guessed in secret_word:
+    #     return True
+    # else:
+    #     return False
+    for letter in letters_guessed:
+        if letter in list(secret_word):
+            return True
+        else:
+            return False
+
 
 def get_available_letters(letters_guessed):
     '''
@@ -88,8 +95,22 @@ def get_available_letters(letters_guessed):
 
 
 def user_input(prompt):
-    user_input = input(prompt)
-    return user_input
+    valid_input = False
+    user_guess = ""
+    while valid_input == False:
+        user_guess = input(prompt)
+
+        if len(user_guess) == 1:
+            valid_input = True
+        else:
+            print("Please only enter one letter, try again")
+
+        print("does this work")
+
+    return user_guess
+
+
+
 
 def spaceman(secret_word):
     '''
@@ -107,29 +128,37 @@ def spaceman(secret_word):
     # FILL IN YOUR CODE HERE...
 
     count = 0
-    guesses = []
+    guesses_list = []
 
-    print("Welcome to Spaceman! The secret word contains {} letters!".format(len(load_word())))
+    print("Welcome to Spaceman! The secret word contains {} letters!".format(len(secret_word)))
     print("Please guess 1 letter at a time!")
     print("If you exceed 7 guesses you lose!")
+    # Perhaps rename to game_board
+    game_board = get_guessed_word(secret_word, str(guesses_list))
+    print(game_board)
+    # print("HERE: {}".format(show_underscore))
 
-    secret_word = "cat"
 
-    while count <= 7:
+    # secret_word = "cat"
+
+    while count < 7:
         guess = user_input('Guess letter: ')
-        guesses.append(guess)
-        print_word = get_guessed_word(secret_word, str(guesses))
-        print(print_word)
+        guesses_list.append(guess)
 
-        if not is_correct_guess(secret_word, guess):
+        print_word = get_guessed_word(secret_word, str(guesses_list))
+
+        # As gueses happen, redraw the board
+        print("{}".format(print_word))
+
+        if is_correct_guess(secret_word, guesses_list) == False:
             count += 1
 
         print(count)
 
 
         # Win Game.
-        if is_word_guessed(secret_word, str(guesses)):
-            get_guessed_word(secret_word, guesses)
+        if is_word_guessed(secret_word, str(guesses_list)):
+            get_guessed_word(secret_word, guesses_list)
             print(secret_word)
             print("You WIN Spaceman!")
             return
@@ -139,8 +168,8 @@ def spaceman(secret_word):
         print("Loser")
         return
 
+
 spaceman(load_word())
-#get_guessed_word("tom", "o")
 
 
 #
